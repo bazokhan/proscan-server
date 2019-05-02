@@ -4,7 +4,7 @@
   "description": "Proscan Server App",
   "main": "index.js",
   "scripts": {
-    "start": "env-cmd ./.env nodemon -e js,graphql app/index.js",
+    "start": "env-cmd ./.env nodemon -L -e js,graphql app/index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Mohamed Elbaz",
@@ -15,6 +15,7 @@
   },
   "dependencies": {
     "graphql-yoga": "^1.17.4",
+    "merge-graphql-schemas": "^1.5.8",
     "prisma-binding": "^2.3.10"
   }
 }
