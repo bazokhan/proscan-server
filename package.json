@@ -1,0 +1,20 @@
+{
+  "name": "proscan-server",
+  "version": "1.0.0",
+  "description": "Proscan Server App",
+  "main": "index.js",
+  "scripts": {
+    "start": "env-cmd ./.env nodemon -e js,graphql app/index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Mohamed Elbaz",
+  "license": "ISC",
+  "devDependencies": {
+    "env-cmd": "^8.0.2",
+    "nodemon": "^1.19.0"
+  },
+  "dependencies": {
+    "graphql-yoga": "^1.17.4",
+    "prisma-binding": "^2.3.10"
+  }
+}
