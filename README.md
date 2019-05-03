@@ -1,10 +1,12 @@
-# Using Dockerfile (in parent directory)
+# Setup
+
+## Using Dockerfile (in parent directory)
 ```
 docker-compose build
 docker-compose up
 ```
 
-# Manual setup
+## Manual setup
 ```
 npm install -g prisma
 npm install -g yarn
