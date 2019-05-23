@@ -19,6 +19,6 @@ const port = process.env.PORT || 3000
 const env = process.env.NODE_ENV || 'development'
 
 server.start({ port }, () => {
-  console.log(`the ${env} server is up on  http://localhost:3003`)
+  console.log(`the ${env} server is up on  http://localhost:${port}`)
   console.log(`Press CTRL + C To Exit..`)
 }).catch(err => console.error('connection Error', err))

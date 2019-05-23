@@ -1,12 +1,12 @@
 type User {
-  id: ID! @id
+  id: ID! @unique @id
   username: String!
   email: String! @unique
   password: String!
 }
 
 type Session {
-  id: ID! @id
+  id: ID! @unique @id
   publicId: String!
   name: String!
   author: User!
@@ -17,7 +17,7 @@ type Session {
 }
 
 type Question {
-  id: ID! @id
+  id: ID! @unique @id
   author: User!
   title: String
   imageUrl: String
@@ -29,12 +29,12 @@ type Question {
 }
 
 type Option {
-  id: ID! @id
+  id: ID! @unique @id
   text: String!
 }
 
 type UserResult {
-  id: ID! @id
+  id: ID! @unique @id
   user: User
   session: Session!
   question: Question!
@@ -42,18 +42,18 @@ type UserResult {
 }
 
 type OptionResult {
-  id: ID! @id
+  id: ID! @unique @id
   userResults: [UserResult!]!
 }
 
 type QuestionResult {
-  id: ID! @id
+  id: ID! @unique @id
   session: Session!
   question: Question!
   optionResults: [OptionResult!]!
 }
 
 type SessionResult {
-  id: ID! @id
+  id: ID! @unique @id
   questionResults: [QuestionResult!]!
 }

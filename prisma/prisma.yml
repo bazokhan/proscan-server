@@ -1,5 +1,6 @@
-endpoint: http://10.0.75.1:4466
+endpoint: http://localhost:4466
 datamodel: datamodel.prisma
+secret: omarali1316
 
 generate:
   - generator: graphql-schema
