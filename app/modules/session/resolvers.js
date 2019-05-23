@@ -1,24 +1,24 @@
 const resolvers = {
   Query: {
-    async sessions(parent, args, {prisma}, info) {
-      return null
+    async sessions(parent, args, { prisma }, info) {
+      return prisma.query.sessions(null, info)
     },
 
-    async session(parent, args, {prisma}, info) {
+    async session(parent, args, { prisma }, info) {
       return null
     }
   },
 
   Mutation: {
-    async createSession(parent, args, {prisma}, info) {
+    async createSession(parent, args, { prisma }, info) {
       return null
     },
 
-    async updateSession(parent, args, {prisma}, info) {
+    async updateSession(parent, args, { prisma }, info) {
       return null
     },
 
-    async deleteSession(parent, args, {prisma}, info) {
+    async deleteSession(parent, args, { prisma }, info) {
       return null
     }
   }
