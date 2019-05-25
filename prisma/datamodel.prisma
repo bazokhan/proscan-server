@@ -1,4 +1,59 @@
 type User {
-  id: ID! @id
+  id: ID! @unique @id
+  username: String!
+  email: String! @unique
+  password: String!
+}
+
+type Session {
+  id: ID! @unique @id
+  publicId: String!
   name: String!
+  author: User!
+  published: Boolean!
+  questions: [Question!]! @relation(name: "SessionQuestions")
+  activeQuestion: Question @relation(name: "SessionActiveQuestion")
+  results: [SessionResult!]!
+}
+
+type Question {
+  id: ID! @unique @id
+  author: User!
+  title: String
+  imageUrl: String
+  prologue: String
+  main: String!
+  options: [Option!]! @relation(name: "QuestionOptions")
+  correctOption: Option! @relation(name: "QuestionCorrectOption")
+  results: [QuestionResult!]!
+}
+
+type Option {
+  id: ID! @unique @id
+  text: String!
+}
+
+type UserResult {
+  id: ID! @unique @id
+  user: User
+  session: Session!
+  question: Question!
+  option: Option!
+}
+
+type OptionResult {
+  id: ID! @unique @id
+  userResults: [UserResult!]!
+}
+
+type QuestionResult {
+  id: ID! @unique @id
+  session: Session!
+  question: Question!
+  optionResults: [OptionResult!]!
+}
+
+type SessionResult {
+  id: ID! @unique @id
+  questionResults: [QuestionResult!]!
 }

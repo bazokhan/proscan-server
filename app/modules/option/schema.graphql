@@ -1,0 +1,9 @@
+type Option {
+  id: ID!
+  text: String!
+}
+
+type OptionResult {
+  id: ID!
+  userResults: [UserResult!]!
+}

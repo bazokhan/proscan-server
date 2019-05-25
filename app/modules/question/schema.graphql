@@ -1,0 +1,18 @@
+type Question {
+  id: ID!
+  author: User!
+  title: String
+  imageUrl: String
+  prologue: String
+  main: String!
+  options: [Option!]!
+  correctOption: Option!
+  results: [QuestionResult!]!
+}
+
+type QuestionResult {
+  id: ID!
+  session: Session!
+  question: Question!
+  optionResults: [OptionResult!]!
+}
