@@ -1,59 +1,46 @@
 type User {
-  id: ID! @unique @id
+  id: ID! @id
   username: String!
   email: String! @unique
   password: String!
 }
 
+type Guest {
+  id: ID! @id
+  username: String!
+}
+
 type Session {
-  id: ID! @unique @id
+  id: ID! @id
   publicId: String!
-  name: String!
   author: User!
-  published: Boolean!
-  questions: [Question!]! @relation(name: "SessionQuestions")
-  activeQuestion: Question @relation(name: "SessionActiveQuestion")
-  results: [SessionResult!]!
+  status: Status!
+  questions: [Question!]!
+  activeQuestion: String!
+  createdAt: DateTime @createdAt
+  updatedAt: DateTime @updatedAt
+  guests: [Guest!]
+}
+
+enum Status {
+  ACTIVE
+  PAUSED
+  ENDED
 }
 
 type Question {
-  id: ID! @unique @id
+  id: ID! @id
   author: User!
-  title: String
-  imageUrl: String
-  prologue: String
-  main: String!
-  options: [Option!]! @relation(name: "QuestionOptions")
-  correctOption: Option! @relation(name: "QuestionCorrectOption")
-  results: [QuestionResult!]!
+  body: String!
+  imageUrls: [String!]
+  choices: [Choice!]! @relation(name: "QuestionChoices")
+  correctChoices: [Choice!]! @relation(name: "QuestionCorrectChoices")
+  createdAt: DateTime @createdAt
+  updatedAt: DateTime @updatedAt
 }
 
-type Option {
-  id: ID! @unique @id
-  text: String!
-}
-
-type UserResult {
-  id: ID! @unique @id
-  user: User
-  session: Session!
-  question: Question!
-  option: Option!
-}
-
-type OptionResult {
-  id: ID! @unique @id
-  userResults: [UserResult!]!
-}
-
-type QuestionResult {
-  id: ID! @unique @id
-  session: Session!
-  question: Question!
-  optionResults: [OptionResult!]!
-}
-
-type SessionResult {
-  id: ID! @unique @id
-  questionResults: [QuestionResult!]!
+type Choice {
+  id: ID! @id
+  body: String!
+  chosenBy: [String!]
 }
