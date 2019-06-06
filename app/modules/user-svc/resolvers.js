@@ -8,6 +8,11 @@ module.exports = {
           password
         }
       });
+    },
+    login: (_, { token }) => {
+      return {
+        token
+      };
     }
   }
 };
