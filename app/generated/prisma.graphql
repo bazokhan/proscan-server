@@ -1,0 +1,1245 @@
+type AggregateChoice {
+  count: Int!
+}
+
+type AggregateGuest {
+  count: Int!
+}
+
+type AggregateQuestion {
+  count: Int!
+}
+
+type AggregateSession {
+  count: Int!
+}
+
+type AggregateUser {
+  count: Int!
+}
+
+type BatchPayload {
+  count: Long!
+}
+
+type Choice {
+  id: ID!
+  body: String!
+  chosenBy: [String!]!
+}
+
+type ChoiceConnection {
+  pageInfo: PageInfo!
+  edges: [ChoiceEdge]!
+  aggregate: AggregateChoice!
+}
+
+input ChoiceCreatechosenByInput {
+  set: [String!]
+}
+
+input ChoiceCreateInput {
+  id: ID
+  body: String!
+  chosenBy: ChoiceCreatechosenByInput
+}
+
+input ChoiceCreateManyInput {
+  create: [ChoiceCreateInput!]
+  connect: [ChoiceWhereUniqueInput!]
+}
+
+type ChoiceEdge {
+  node: Choice!
+  cursor: String!
+}
+
+enum ChoiceOrderByInput {
+  id_ASC
+  id_DESC
+  body_ASC
+  body_DESC
+}
+
+type ChoicePreviousValues {
+  id: ID!
+  body: String!
+  chosenBy: [String!]!
+}
+
+input ChoiceScalarWhereInput {
+  id: ID
+  id_not: ID
+  id_in: [ID!]
+  id_not_in: [ID!]
+  id_lt: ID
+  id_lte: ID
+  id_gt: ID
+  id_gte: ID
+  id_contains: ID
+  id_not_contains: ID
+  id_starts_with: ID
+  id_not_starts_with: ID
+  id_ends_with: ID
+  id_not_ends_with: ID
+  body: String
+  body_not: String
+  body_in: [String!]
+  body_not_in: [String!]
+  body_lt: String
+  body_lte: String
+  body_gt: String
+  body_gte: String
+  body_contains: String
+  body_not_contains: String
+  body_starts_with: String
+  body_not_starts_with: String
+  body_ends_with: String
+  body_not_ends_with: String
+  AND: [ChoiceScalarWhereInput!]
+  OR: [ChoiceScalarWhereInput!]
+  NOT: [ChoiceScalarWhereInput!]
+}
+
+type ChoiceSubscriptionPayload {
+  mutation: MutationType!
+  node: Choice
+  updatedFields: [String!]
+  previousValues: ChoicePreviousValues
+}
+
+input ChoiceSubscriptionWhereInput {
+  mutation_in: [MutationType!]
+  updatedFields_contains: String
+  updatedFields_contains_every: [String!]
+  updatedFields_contains_some: [String!]
+  node: ChoiceWhereInput
+  AND: [ChoiceSubscriptionWhereInput!]
+  OR: [ChoiceSubscriptionWhereInput!]
+  NOT: [ChoiceSubscriptionWhereInput!]
+}
+
+input ChoiceUpdatechosenByInput {
+  set: [String!]
+}
+
+input ChoiceUpdateDataInput {
+  body: String
+  chosenBy: ChoiceUpdatechosenByInput
+}
+
+input ChoiceUpdateInput {
+  body: String
+  chosenBy: ChoiceUpdatechosenByInput
+}
+
+input ChoiceUpdateManyDataInput {
+  body: String
+  chosenBy: ChoiceUpdatechosenByInput
+}
+
+input ChoiceUpdateManyInput {
+  create: [ChoiceCreateInput!]
+  update: [ChoiceUpdateWithWhereUniqueNestedInput!]
+  upsert: [ChoiceUpsertWithWhereUniqueNestedInput!]
+  delete: [ChoiceWhereUniqueInput!]
+  connect: [ChoiceWhereUniqueInput!]
+  set: [ChoiceWhereUniqueInput!]
+  disconnect: [ChoiceWhereUniqueInput!]
+  deleteMany: [ChoiceScalarWhereInput!]
+  updateMany: [ChoiceUpdateManyWithWhereNestedInput!]
+}
+
+input ChoiceUpdateManyMutationInput {
+  body: String
+  chosenBy: ChoiceUpdatechosenByInput
+}
+
+input ChoiceUpdateManyWithWhereNestedInput {
+  where: ChoiceScalarWhereInput!
+  data: ChoiceUpdateManyDataInput!
+}
+
+input ChoiceUpdateWithWhereUniqueNestedInput {
+  where: ChoiceWhereUniqueInput!
+  data: ChoiceUpdateDataInput!
+}
+
+input ChoiceUpsertWithWhereUniqueNestedInput {
+  where: ChoiceWhereUniqueInput!
+  update: ChoiceUpdateDataInput!
+  create: ChoiceCreateInput!
+}
+
+input ChoiceWhereInput {
+  id: ID
+  id_not: ID
+  id_in: [ID!]
+  id_not_in: [ID!]
+  id_lt: ID
+  id_lte: ID
+  id_gt: ID
+  id_gte: ID
+  id_contains: ID
+  id_not_contains: ID
+  id_starts_with: ID
+  id_not_starts_with: ID
+  id_ends_with: ID
+  id_not_ends_with: ID
+  body: String
+  body_not: String
+  body_in: [String!]
+  body_not_in: [String!]
+  body_lt: String
+  body_lte: String
+  body_gt: String
+  body_gte: String
+  body_contains: String
+  body_not_contains: String
+  body_starts_with: String
+  body_not_starts_with: String
+  body_ends_with: String
+  body_not_ends_with: String
+  AND: [ChoiceWhereInput!]
+  OR: [ChoiceWhereInput!]
+  NOT: [ChoiceWhereInput!]
+}
+
+input ChoiceWhereUniqueInput {
+  id: ID
+}
+
+scalar DateTime
+
+type Guest {
+  id: ID!
+  sessionID: ID!
+  username: String!
+}
+
+type GuestConnection {
+  pageInfo: PageInfo!
+  edges: [GuestEdge]!
+  aggregate: AggregateGuest!
+}
+
+input GuestCreateInput {
+  id: ID
+  sessionID: ID!
+  username: String!
+}
+
+input GuestCreateManyInput {
+  create: [GuestCreateInput!]
+  connect: [GuestWhereUniqueInput!]
+}
+
+type GuestEdge {
+  node: Guest!
+  cursor: String!
+}
+
+enum GuestOrderByInput {
+  id_ASC
+  id_DESC
+  sessionID_ASC
+  sessionID_DESC
+  username_ASC
+  username_DESC
+}
+
+type GuestPreviousValues {
+  id: ID!
+  sessionID: ID!
+  username: String!
+}
+
+input GuestScalarWhereInput {
+  id: ID
+  id_not: ID
+  id_in: [ID!]
+  id_not_in: [ID!]
+  id_lt: ID
+  id_lte: ID
+  id_gt: ID
+  id_gte: ID
+  id_contains: ID
+  id_not_contains: ID
+  id_starts_with: ID
+  id_not_starts_with: ID
+  id_ends_with: ID
+  id_not_ends_with: ID
+  sessionID: ID
+  sessionID_not: ID
+  sessionID_in: [ID!]
+  sessionID_not_in: [ID!]
+  sessionID_lt: ID
+  sessionID_lte: ID
+  sessionID_gt: ID
+  sessionID_gte: ID
+  sessionID_contains: ID
+  sessionID_not_contains: ID
+  sessionID_starts_with: ID
+  sessionID_not_starts_with: ID
+  sessionID_ends_with: ID
+  sessionID_not_ends_with: ID
+  username: String
+  username_not: String
+  username_in: [String!]
+  username_not_in: [String!]
+  username_lt: String
+  username_lte: String
+  username_gt: String
+  username_gte: String
+  username_contains: String
+  username_not_contains: String
+  username_starts_with: String
+  username_not_starts_with: String
+  username_ends_with: String
+  username_not_ends_with: String
+  AND: [GuestScalarWhereInput!]
+  OR: [GuestScalarWhereInput!]
+  NOT: [GuestScalarWhereInput!]
+}
+
+type GuestSubscriptionPayload {
+  mutation: MutationType!
+  node: Guest
+  updatedFields: [String!]
+  previousValues: GuestPreviousValues
+}
+
+input GuestSubscriptionWhereInput {
+  mutation_in: [MutationType!]
+  updatedFields_contains: String
+  updatedFields_contains_every: [String!]
+  updatedFields_contains_some: [String!]
+  node: GuestWhereInput
+  AND: [GuestSubscriptionWhereInput!]
+  OR: [GuestSubscriptionWhereInput!]
+  NOT: [GuestSubscriptionWhereInput!]
+}
+
+input GuestUpdateDataInput {
+  sessionID: ID
+  username: String
+}
+
+input GuestUpdateInput {
+  sessionID: ID
+  username: String
+}
+
+input GuestUpdateManyDataInput {
+  sessionID: ID
+  username: String
+}
+
+input GuestUpdateManyInput {
+  create: [GuestCreateInput!]
+  update: [GuestUpdateWithWhereUniqueNestedInput!]
+  upsert: [GuestUpsertWithWhereUniqueNestedInput!]
+  delete: [GuestWhereUniqueInput!]
+  connect: [GuestWhereUniqueInput!]
+  set: [GuestWhereUniqueInput!]
+  disconnect: [GuestWhereUniqueInput!]
+  deleteMany: [GuestScalarWhereInput!]
+  updateMany: [GuestUpdateManyWithWhereNestedInput!]
+}
+
+input GuestUpdateManyMutationInput {
+  sessionID: ID
+  username: String
+}
+
+input GuestUpdateManyWithWhereNestedInput {
+  where: GuestScalarWhereInput!
+  data: GuestUpdateManyDataInput!
+}
+
+input GuestUpdateWithWhereUniqueNestedInput {
+  where: GuestWhereUniqueInput!
+  data: GuestUpdateDataInput!
+}
+
+input GuestUpsertWithWhereUniqueNestedInput {
+  where: GuestWhereUniqueInput!
+  update: GuestUpdateDataInput!
+  create: GuestCreateInput!
+}
+
+input GuestWhereInput {
+  id: ID
+  id_not: ID
+  id_in: [ID!]
+  id_not_in: [ID!]
+  id_lt: ID
+  id_lte: ID
+  id_gt: ID
+  id_gte: ID
+  id_contains: ID
+  id_not_contains: ID
+  id_starts_with: ID
+  id_not_starts_with: ID
+  id_ends_with: ID
+  id_not_ends_with: ID
+  sessionID: ID
+  sessionID_not: ID
+  sessionID_in: [ID!]
+  sessionID_not_in: [ID!]
+  sessionID_lt: ID
+  sessionID_lte: ID
+  sessionID_gt: ID
+  sessionID_gte: ID
+  sessionID_contains: ID
+  sessionID_not_contains: ID
+  sessionID_starts_with: ID
+  sessionID_not_starts_with: ID
+  sessionID_ends_with: ID
+  sessionID_not_ends_with: ID
+  username: String
+  username_not: String
+  username_in: [String!]
+  username_not_in: [String!]
+  username_lt: String
+  username_lte: String
+  username_gt: String
+  username_gte: String
+  username_contains: String
+  username_not_contains: String
+  username_starts_with: String
+  username_not_starts_with: String
+  username_ends_with: String
+  username_not_ends_with: String
+  AND: [GuestWhereInput!]
+  OR: [GuestWhereInput!]
+  NOT: [GuestWhereInput!]
+}
+
+input GuestWhereUniqueInput {
+  id: ID
+}
+
+scalar Long
+
+type Mutation {
+  createChoice(data: ChoiceCreateInput!): Choice!
+  updateChoice(data: ChoiceUpdateInput!, where: ChoiceWhereUniqueInput!): Choice
+  updateManyChoices(data: ChoiceUpdateManyMutationInput!, where: ChoiceWhereInput): BatchPayload!
+  upsertChoice(where: ChoiceWhereUniqueInput!, create: ChoiceCreateInput!, update: ChoiceUpdateInput!): Choice!
+  deleteChoice(where: ChoiceWhereUniqueInput!): Choice
+  deleteManyChoices(where: ChoiceWhereInput): BatchPayload!
+  createGuest(data: GuestCreateInput!): Guest!
+  updateGuest(data: GuestUpdateInput!, where: GuestWhereUniqueInput!): Guest
+  updateManyGuests(data: GuestUpdateManyMutationInput!, where: GuestWhereInput): BatchPayload!
+  upsertGuest(where: GuestWhereUniqueInput!, create: GuestCreateInput!, update: GuestUpdateInput!): Guest!
+  deleteGuest(where: GuestWhereUniqueInput!): Guest
+  deleteManyGuests(where: GuestWhereInput): BatchPayload!
+  createQuestion(data: QuestionCreateInput!): Question!
+  updateQuestion(data: QuestionUpdateInput!, where: QuestionWhereUniqueInput!): Question
+  updateManyQuestions(data: QuestionUpdateManyMutationInput!, where: QuestionWhereInput): BatchPayload!
+  upsertQuestion(where: QuestionWhereUniqueInput!, create: QuestionCreateInput!, update: QuestionUpdateInput!): Question!
+  deleteQuestion(where: QuestionWhereUniqueInput!): Question
+  deleteManyQuestions(where: QuestionWhereInput): BatchPayload!
+  createSession(data: SessionCreateInput!): Session!
+  updateSession(data: SessionUpdateInput!, where: SessionWhereUniqueInput!): Session
+  updateManySessions(data: SessionUpdateManyMutationInput!, where: SessionWhereInput): BatchPayload!
+  upsertSession(where: SessionWhereUniqueInput!, create: SessionCreateInput!, update: SessionUpdateInput!): Session!
+  deleteSession(where: SessionWhereUniqueInput!): Session
+  deleteManySessions(where: SessionWhereInput): BatchPayload!
+  createUser(data: UserCreateInput!): User!
+  updateUser(data: UserUpdateInput!, where: UserWhereUniqueInput!): User
+  updateManyUsers(data: UserUpdateManyMutationInput!, where: UserWhereInput): BatchPayload!
+  upsertUser(where: UserWhereUniqueInput!, create: UserCreateInput!, update: UserUpdateInput!): User!
+  deleteUser(where: UserWhereUniqueInput!): User
+  deleteManyUsers(where: UserWhereInput): BatchPayload!
+}
+
+enum MutationType {
+  CREATED
+  UPDATED
+  DELETED
+}
+
+interface Node {
+  id: ID!
+}
+
+type PageInfo {
+  hasNextPage: Boolean!
+  hasPreviousPage: Boolean!
+  startCursor: String
+  endCursor: String
+}
+
+type Query {
+  choice(where: ChoiceWhereUniqueInput!): Choice
+  choices(where: ChoiceWhereInput, orderBy: ChoiceOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Choice]!
+  choicesConnection(where: ChoiceWhereInput, orderBy: ChoiceOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): ChoiceConnection!
+  guest(where: GuestWhereUniqueInput!): Guest
+  guests(where: GuestWhereInput, orderBy: GuestOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Guest]!
+  guestsConnection(where: GuestWhereInput, orderBy: GuestOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): GuestConnection!
+  question(where: QuestionWhereUniqueInput!): Question
+  questions(where: QuestionWhereInput, orderBy: QuestionOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Question]!
+  questionsConnection(where: QuestionWhereInput, orderBy: QuestionOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): QuestionConnection!
+  session(where: SessionWhereUniqueInput!): Session
+  sessions(where: SessionWhereInput, orderBy: SessionOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Session]!
+  sessionsConnection(where: SessionWhereInput, orderBy: SessionOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): SessionConnection!
+  user(where: UserWhereUniqueInput!): User
+  users(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [User]!
+  usersConnection(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): UserConnection!
+  node(id: ID!): Node
+}
+
+type Question {
+  id: ID!
+  author: User!
+  body: String!
+  imageUrls: [String!]!
+  choices(where: ChoiceWhereInput, orderBy: ChoiceOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Choice!]
+  correctChoices(where: ChoiceWhereInput, orderBy: ChoiceOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Choice!]
+  createdAt: DateTime
+  updatedAt: DateTime
+}
+
+type QuestionConnection {
+  pageInfo: PageInfo!
+  edges: [QuestionEdge]!
+  aggregate: AggregateQuestion!
+}
+
+input QuestionCreateimageUrlsInput {
+  set: [String!]
+}
+
+input QuestionCreateInput {
+  id: ID
+  author: UserCreateOneInput!
+  body: String!
+  imageUrls: QuestionCreateimageUrlsInput
+  choices: ChoiceCreateManyInput
+  correctChoices: ChoiceCreateManyInput
+}
+
+input QuestionCreateManyInput {
+  create: [QuestionCreateInput!]
+  connect: [QuestionWhereUniqueInput!]
+}
+
+type QuestionEdge {
+  node: Question!
+  cursor: String!
+}
+
+enum QuestionOrderByInput {
+  id_ASC
+  id_DESC
+  body_ASC
+  body_DESC
+  createdAt_ASC
+  createdAt_DESC
+  updatedAt_ASC
+  updatedAt_DESC
+}
+
+type QuestionPreviousValues {
+  id: ID!
+  body: String!
+  imageUrls: [String!]!
+  createdAt: DateTime
+  updatedAt: DateTime
+}
+
+input QuestionScalarWhereInput {
+  id: ID
+  id_not: ID
+  id_in: [ID!]
+  id_not_in: [ID!]
+  id_lt: ID
+  id_lte: ID
+  id_gt: ID
+  id_gte: ID
+  id_contains: ID
+  id_not_contains: ID
+  id_starts_with: ID
+  id_not_starts_with: ID
+  id_ends_with: ID
+  id_not_ends_with: ID
+  body: String
+  body_not: String
+  body_in: [String!]
+  body_not_in: [String!]
+  body_lt: String
+  body_lte: String
+  body_gt: String
+  body_gte: String
+  body_contains: String
+  body_not_contains: String
+  body_starts_with: String
+  body_not_starts_with: String
+  body_ends_with: String
+  body_not_ends_with: String
+  createdAt: DateTime
+  createdAt_not: DateTime
+  createdAt_in: [DateTime!]
+  createdAt_not_in: [DateTime!]
+  createdAt_lt: DateTime
+  createdAt_lte: DateTime
+  createdAt_gt: DateTime
+  createdAt_gte: DateTime
+  updatedAt: DateTime
+  updatedAt_not: DateTime
+  updatedAt_in: [DateTime!]
+  updatedAt_not_in: [DateTime!]
+  updatedAt_lt: DateTime
+  updatedAt_lte: DateTime
+  updatedAt_gt: DateTime
+  updatedAt_gte: DateTime
+  AND: [QuestionScalarWhereInput!]
+  OR: [QuestionScalarWhereInput!]
+  NOT: [QuestionScalarWhereInput!]
+}
+
+type QuestionSubscriptionPayload {
+  mutation: MutationType!
+  node: Question
+  updatedFields: [String!]
+  previousValues: QuestionPreviousValues
+}
+
+input QuestionSubscriptionWhereInput {
+  mutation_in: [MutationType!]
+  updatedFields_contains: String
+  updatedFields_contains_every: [String!]
+  updatedFields_contains_some: [String!]
+  node: QuestionWhereInput
+  AND: [QuestionSubscriptionWhereInput!]
+  OR: [QuestionSubscriptionWhereInput!]
+  NOT: [QuestionSubscriptionWhereInput!]
+}
+
+input QuestionUpdateDataInput {
+  author: UserUpdateOneRequiredInput
+  body: String
+  imageUrls: QuestionUpdateimageUrlsInput
+  choices: ChoiceUpdateManyInput
+  correctChoices: ChoiceUpdateManyInput
+}
+
+input QuestionUpdateimageUrlsInput {
+  set: [String!]
+}
+
+input QuestionUpdateInput {
+  author: UserUpdateOneRequiredInput
+  body: String
+  imageUrls: QuestionUpdateimageUrlsInput
+  choices: ChoiceUpdateManyInput
+  correctChoices: ChoiceUpdateManyInput
+}
+
+input QuestionUpdateManyDataInput {
+  body: String
+  imageUrls: QuestionUpdateimageUrlsInput
+}
+
+input QuestionUpdateManyInput {
+  create: [QuestionCreateInput!]
+  update: [QuestionUpdateWithWhereUniqueNestedInput!]
+  upsert: [QuestionUpsertWithWhereUniqueNestedInput!]
+  delete: [QuestionWhereUniqueInput!]
+  connect: [QuestionWhereUniqueInput!]
+  set: [QuestionWhereUniqueInput!]
+  disconnect: [QuestionWhereUniqueInput!]
+  deleteMany: [QuestionScalarWhereInput!]
+  updateMany: [QuestionUpdateManyWithWhereNestedInput!]
+}
+
+input QuestionUpdateManyMutationInput {
+  body: String
+  imageUrls: QuestionUpdateimageUrlsInput
+}
+
+input QuestionUpdateManyWithWhereNestedInput {
+  where: QuestionScalarWhereInput!
+  data: QuestionUpdateManyDataInput!
+}
+
+input QuestionUpdateWithWhereUniqueNestedInput {
+  where: QuestionWhereUniqueInput!
+  data: QuestionUpdateDataInput!
+}
+
+input QuestionUpsertWithWhereUniqueNestedInput {
+  where: QuestionWhereUniqueInput!
+  update: QuestionUpdateDataInput!
+  create: QuestionCreateInput!
+}
+
+input QuestionWhereInput {
+  id: ID
+  id_not: ID
+  id_in: [ID!]
+  id_not_in: [ID!]
+  id_lt: ID
+  id_lte: ID
+  id_gt: ID
+  id_gte: ID
+  id_contains: ID
+  id_not_contains: ID
+  id_starts_with: ID
+  id_not_starts_with: ID
+  id_ends_with: ID
+  id_not_ends_with: ID
+  author: UserWhereInput
+  body: String
+  body_not: String
+  body_in: [String!]
+  body_not_in: [String!]
+  body_lt: String
+  body_lte: String
+  body_gt: String
+  body_gte: String
+  body_contains: String
+  body_not_contains: String
+  body_starts_with: String
+  body_not_starts_with: String
+  body_ends_with: String
+  body_not_ends_with: String
+  choices_every: ChoiceWhereInput
+  choices_some: ChoiceWhereInput
+  choices_none: ChoiceWhereInput
+  correctChoices_every: ChoiceWhereInput
+  correctChoices_some: ChoiceWhereInput
+  correctChoices_none: ChoiceWhereInput
+  createdAt: DateTime
+  createdAt_not: DateTime
+  createdAt_in: [DateTime!]
+  createdAt_not_in: [DateTime!]
+  createdAt_lt: DateTime
+  createdAt_lte: DateTime
+  createdAt_gt: DateTime
+  createdAt_gte: DateTime
+  updatedAt: DateTime
+  updatedAt_not: DateTime
+  updatedAt_in: [DateTime!]
+  updatedAt_not_in: [DateTime!]
+  updatedAt_lt: DateTime
+  updatedAt_lte: DateTime
+  updatedAt_gt: DateTime
+  updatedAt_gte: DateTime
+  AND: [QuestionWhereInput!]
+  OR: [QuestionWhereInput!]
+  NOT: [QuestionWhereInput!]
+}
+
+input QuestionWhereUniqueInput {
+  id: ID
+}
+
+type Session {
+  id: ID!
+  publicId: String!
+  author: User!
+  status: Status!
+  questions(where: QuestionWhereInput, orderBy: QuestionOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Question!]
+  activeQuestion: String!
+  createdAt: DateTime
+  updatedAt: DateTime
+  guests(where: GuestWhereInput, orderBy: GuestOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Guest!]
+}
+
+type SessionConnection {
+  pageInfo: PageInfo!
+  edges: [SessionEdge]!
+  aggregate: AggregateSession!
+}
+
+input SessionCreateInput {
+  id: ID
+  publicId: String!
+  author: UserCreateOneWithoutSessionsInput!
+  status: Status!
+  questions: QuestionCreateManyInput
+  activeQuestion: String!
+  guests: GuestCreateManyInput
+}
+
+input SessionCreateManyWithoutAuthorInput {
+  create: [SessionCreateWithoutAuthorInput!]
+  connect: [SessionWhereUniqueInput!]
+}
+
+input SessionCreateWithoutAuthorInput {
+  id: ID
+  publicId: String!
+  status: Status!
+  questions: QuestionCreateManyInput
+  activeQuestion: String!
+  guests: GuestCreateManyInput
+}
+
+type SessionEdge {
+  node: Session!
+  cursor: String!
+}
+
+enum SessionOrderByInput {
+  id_ASC
+  id_DESC
+  publicId_ASC
+  publicId_DESC
+  status_ASC
+  status_DESC
+  activeQuestion_ASC
+  activeQuestion_DESC
+  createdAt_ASC
+  createdAt_DESC
+  updatedAt_ASC
+  updatedAt_DESC
+}
+
+type SessionPreviousValues {
+  id: ID!
+  publicId: String!
+  status: Status!
+  activeQuestion: String!
+  createdAt: DateTime
+  updatedAt: DateTime
+}
+
+input SessionScalarWhereInput {
+  id: ID
+  id_not: ID
+  id_in: [ID!]
+  id_not_in: [ID!]
+  id_lt: ID
+  id_lte: ID
+  id_gt: ID
+  id_gte: ID
+  id_contains: ID
+  id_not_contains: ID
+  id_starts_with: ID
+  id_not_starts_with: ID
+  id_ends_with: ID
+  id_not_ends_with: ID
+  publicId: String
+  publicId_not: String
+  publicId_in: [String!]
+  publicId_not_in: [String!]
+  publicId_lt: String
+  publicId_lte: String
+  publicId_gt: String
+  publicId_gte: String
+  publicId_contains: String
+  publicId_not_contains: String
+  publicId_starts_with: String
+  publicId_not_starts_with: String
+  publicId_ends_with: String
+  publicId_not_ends_with: String
+  status: Status
+  status_not: Status
+  status_in: [Status!]
+  status_not_in: [Status!]
+  activeQuestion: String
+  activeQuestion_not: String
+  activeQuestion_in: [String!]
+  activeQuestion_not_in: [String!]
+  activeQuestion_lt: String
+  activeQuestion_lte: String
+  activeQuestion_gt: String
+  activeQuestion_gte: String
+  activeQuestion_contains: String
+  activeQuestion_not_contains: String
+  activeQuestion_starts_with: String
+  activeQuestion_not_starts_with: String
+  activeQuestion_ends_with: String
+  activeQuestion_not_ends_with: String
+  createdAt: DateTime
+  createdAt_not: DateTime
+  createdAt_in: [DateTime!]
+  createdAt_not_in: [DateTime!]
+  createdAt_lt: DateTime
+  createdAt_lte: DateTime
+  createdAt_gt: DateTime
+  createdAt_gte: DateTime
+  updatedAt: DateTime
+  updatedAt_not: DateTime
+  updatedAt_in: [DateTime!]
+  updatedAt_not_in: [DateTime!]
+  updatedAt_lt: DateTime
+  updatedAt_lte: DateTime
+  updatedAt_gt: DateTime
+  updatedAt_gte: DateTime
+  AND: [SessionScalarWhereInput!]
+  OR: [SessionScalarWhereInput!]
+  NOT: [SessionScalarWhereInput!]
+}
+
+type SessionSubscriptionPayload {
+  mutation: MutationType!
+  node: Session
+  updatedFields: [String!]
+  previousValues: SessionPreviousValues
+}
+
+input SessionSubscriptionWhereInput {
+  mutation_in: [MutationType!]
+  updatedFields_contains: String
+  updatedFields_contains_every: [String!]
+  updatedFields_contains_some: [String!]
+  node: SessionWhereInput
+  AND: [SessionSubscriptionWhereInput!]
+  OR: [SessionSubscriptionWhereInput!]
+  NOT: [SessionSubscriptionWhereInput!]
+}
+
+input SessionUpdateInput {
+  publicId: String
+  author: UserUpdateOneRequiredWithoutSessionsInput
+  status: Status
+  questions: QuestionUpdateManyInput
+  activeQuestion: String
+  guests: GuestUpdateManyInput
+}
+
+input SessionUpdateManyDataInput {
+  publicId: String
+  status: Status
+  activeQuestion: String
+}
+
+input SessionUpdateManyMutationInput {
+  publicId: String
+  status: Status
+  activeQuestion: String
+}
+
+input SessionUpdateManyWithoutAuthorInput {
+  create: [SessionCreateWithoutAuthorInput!]
+  delete: [SessionWhereUniqueInput!]
+  connect: [SessionWhereUniqueInput!]
+  set: [SessionWhereUniqueInput!]
+  disconnect: [SessionWhereUniqueInput!]
+  update: [SessionUpdateWithWhereUniqueWithoutAuthorInput!]
+  upsert: [SessionUpsertWithWhereUniqueWithoutAuthorInput!]
+  deleteMany: [SessionScalarWhereInput!]
+  updateMany: [SessionUpdateManyWithWhereNestedInput!]
+}
+
+input SessionUpdateManyWithWhereNestedInput {
+  where: SessionScalarWhereInput!
+  data: SessionUpdateManyDataInput!
+}
+
+input SessionUpdateWithoutAuthorDataInput {
+  publicId: String
+  status: Status
+  questions: QuestionUpdateManyInput
+  activeQuestion: String
+  guests: GuestUpdateManyInput
+}
+
+input SessionUpdateWithWhereUniqueWithoutAuthorInput {
+  where: SessionWhereUniqueInput!
+  data: SessionUpdateWithoutAuthorDataInput!
+}
+
+input SessionUpsertWithWhereUniqueWithoutAuthorInput {
+  where: SessionWhereUniqueInput!
+  update: SessionUpdateWithoutAuthorDataInput!
+  create: SessionCreateWithoutAuthorInput!
+}
+
+input SessionWhereInput {
+  id: ID
+  id_not: ID
+  id_in: [ID!]
+  id_not_in: [ID!]
+  id_lt: ID
+  id_lte: ID
+  id_gt: ID
+  id_gte: ID
+  id_contains: ID
+  id_not_contains: ID
+  id_starts_with: ID
+  id_not_starts_with: ID
+  id_ends_with: ID
+  id_not_ends_with: ID
+  publicId: String
+  publicId_not: String
+  publicId_in: [String!]
+  publicId_not_in: [String!]
+  publicId_lt: String
+  publicId_lte: String
+  publicId_gt: String
+  publicId_gte: String
+  publicId_contains: String
+  publicId_not_contains: String
+  publicId_starts_with: String
+  publicId_not_starts_with: String
+  publicId_ends_with: String
+  publicId_not_ends_with: String
+  author: UserWhereInput
+  status: Status
+  status_not: Status
+  status_in: [Status!]
+  status_not_in: [Status!]
+  questions_every: QuestionWhereInput
+  questions_some: QuestionWhereInput
+  questions_none: QuestionWhereInput
+  activeQuestion: String
+  activeQuestion_not: String
+  activeQuestion_in: [String!]
+  activeQuestion_not_in: [String!]
+  activeQuestion_lt: String
+  activeQuestion_lte: String
+  activeQuestion_gt: String
+  activeQuestion_gte: String
+  activeQuestion_contains: String
+  activeQuestion_not_contains: String
+  activeQuestion_starts_with: String
+  activeQuestion_not_starts_with: String
+  activeQuestion_ends_with: String
+  activeQuestion_not_ends_with: String
+  createdAt: DateTime
+  createdAt_not: DateTime
+  createdAt_in: [DateTime!]
+  createdAt_not_in: [DateTime!]
+  createdAt_lt: DateTime
+  createdAt_lte: DateTime
+  createdAt_gt: DateTime
+  createdAt_gte: DateTime
+  updatedAt: DateTime
+  updatedAt_not: DateTime
+  updatedAt_in: [DateTime!]
+  updatedAt_not_in: [DateTime!]
+  updatedAt_lt: DateTime
+  updatedAt_lte: DateTime
+  updatedAt_gt: DateTime
+  updatedAt_gte: DateTime
+  guests_every: GuestWhereInput
+  guests_some: GuestWhereInput
+  guests_none: GuestWhereInput
+  AND: [SessionWhereInput!]
+  OR: [SessionWhereInput!]
+  NOT: [SessionWhereInput!]
+}
+
+input SessionWhereUniqueInput {
+  id: ID
+}
+
+enum Status {
+  ACTIVE
+  PAUSED
+  ENDED
+}
+
+type Subscription {
+  choice(where: ChoiceSubscriptionWhereInput): ChoiceSubscriptionPayload
+  guest(where: GuestSubscriptionWhereInput): GuestSubscriptionPayload
+  question(where: QuestionSubscriptionWhereInput): QuestionSubscriptionPayload
+  session(where: SessionSubscriptionWhereInput): SessionSubscriptionPayload
+  user(where: UserSubscriptionWhereInput): UserSubscriptionPayload
+}
+
+type User {
+  id: ID!
+  username: String!
+  email: String!
+  password: String!
+  sessions(where: SessionWhereInput, orderBy: SessionOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Session!]
+}
+
+type UserConnection {
+  pageInfo: PageInfo!
+  edges: [UserEdge]!
+  aggregate: AggregateUser!
+}
+
+input UserCreateInput {
+  id: ID
+  username: String!
+  email: String!
+  password: String!
+  sessions: SessionCreateManyWithoutAuthorInput
+}
+
+input UserCreateOneInput {
+  create: UserCreateInput
+  connect: UserWhereUniqueInput
+}
+
+input UserCreateOneWithoutSessionsInput {
+  create: UserCreateWithoutSessionsInput
+  connect: UserWhereUniqueInput
+}
+
+input UserCreateWithoutSessionsInput {
+  id: ID
+  username: String!
+  email: String!
+  password: String!
+}
+
+type UserEdge {
+  node: User!
+  cursor: String!
+}
+
+enum UserOrderByInput {
+  id_ASC
+  id_DESC
+  username_ASC
+  username_DESC
+  email_ASC
+  email_DESC
+  password_ASC
+  password_DESC
+}
+
+type UserPreviousValues {
+  id: ID!
+  username: String!
+  email: String!
+  password: String!
+}
+
+type UserSubscriptionPayload {
+  mutation: MutationType!
+  node: User
+  updatedFields: [String!]
+  previousValues: UserPreviousValues
+}
+
+input UserSubscriptionWhereInput {
+  mutation_in: [MutationType!]
+  updatedFields_contains: String
+  updatedFields_contains_every: [String!]
+  updatedFields_contains_some: [String!]
+  node: UserWhereInput
+  AND: [UserSubscriptionWhereInput!]
+  OR: [UserSubscriptionWhereInput!]
+  NOT: [UserSubscriptionWhereInput!]
+}
+
+input UserUpdateDataInput {
+  username: String
+  email: String
+  password: String
+  sessions: SessionUpdateManyWithoutAuthorInput
+}
+
+input UserUpdateInput {
+  username: String
+  email: String
+  password: String
+  sessions: SessionUpdateManyWithoutAuthorInput
+}
+
+input UserUpdateManyMutationInput {
+  username: String
+  email: String
+  password: String
+}
+
+input UserUpdateOneRequiredInput {
+  create: UserCreateInput
+  update: UserUpdateDataInput
+  upsert: UserUpsertNestedInput
+  connect: UserWhereUniqueInput
+}
+
+input UserUpdateOneRequiredWithoutSessionsInput {
+  create: UserCreateWithoutSessionsInput
+  update: UserUpdateWithoutSessionsDataInput
+  upsert: UserUpsertWithoutSessionsInput
+  connect: UserWhereUniqueInput
+}
+
+input UserUpdateWithoutSessionsDataInput {
+  username: String
+  email: String
+  password: String
+}
+
+input UserUpsertNestedInput {
+  update: UserUpdateDataInput!
+  create: UserCreateInput!
+}
+
+input UserUpsertWithoutSessionsInput {
+  update: UserUpdateWithoutSessionsDataInput!
+  create: UserCreateWithoutSessionsInput!
+}
+
+input UserWhereInput {
+  id: ID
+  id_not: ID
+  id_in: [ID!]
+  id_not_in: [ID!]
+  id_lt: ID
+  id_lte: ID
+  id_gt: ID
+  id_gte: ID
+  id_contains: ID
+  id_not_contains: ID
+  id_starts_with: ID
+  id_not_starts_with: ID
+  id_ends_with: ID
+  id_not_ends_with: ID
+  username: String
+  username_not: String
+  username_in: [String!]
+  username_not_in: [String!]
+  username_lt: String
+  username_lte: String
+  username_gt: String
+  username_gte: String
+  username_contains: String
+  username_not_contains: String
+  username_starts_with: String
+  username_not_starts_with: String
+  username_ends_with: String
+  username_not_ends_with: String
+  email: String
+  email_not: String
+  email_in: [String!]
+  email_not_in: [String!]
+  email_lt: String
+  email_lte: String
+  email_gt: String
+  email_gte: String
+  email_contains: String
+  email_not_contains: String
+  email_starts_with: String
+  email_not_starts_with: String
+  email_ends_with: String
+  email_not_ends_with: String
+  password: String
+  password_not: String
+  password_in: [String!]
+  password_not_in: [String!]
+  password_lt: String
+  password_lte: String
+  password_gt: String
+  password_gte: String
+  password_contains: String
+  password_not_contains: String
+  password_starts_with: String
+  password_not_starts_with: String
+  password_ends_with: String
+  password_not_ends_with: String
+  sessions_every: SessionWhereInput
+  sessions_some: SessionWhereInput
+  sessions_none: SessionWhereInput
+  AND: [UserWhereInput!]
+  OR: [UserWhereInput!]
+  NOT: [UserWhereInput!]
+}
+
+input UserWhereUniqueInput {
+  id: ID
+  email: String
+}

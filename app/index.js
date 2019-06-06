@@ -1,24 +1,9 @@
-const { GraphQLServer } = require('graphql-yoga')
-const context = require('./context')
-const typeDefs = require('./typeDefs')
-const resolvers = require('./resolvers')
+const server = require('./server');
 
-const server = new GraphQLServer({
-  typeDefs,
-  context,
-  resolvers
-})
-
-const app = server.express
-app.get('/health', (req, res) => {
-  console.log('Request Got !')
-  res.sendStatus(200)
-})
-
-const port = process.env.PORT || 3000
-const env = process.env.NODE_ENV || 'development'
-
-server.start({ port }, () => {
-  console.log(`the ${env} server is up on  http://localhost:${port}`)
-  console.log(`Press CTRL + C To Exit..`)
-}).catch(err => console.error('connection Error', err))
+server.listen({ port: 4000 }, () =>
+  console.log(
+    `🚀 Server ready at http://localhost:4000/graphql , env: ${
+      process.env.NODE_ENV
+    }`
+  )
+);
