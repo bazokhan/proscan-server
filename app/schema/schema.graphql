@@ -1,0 +1,5 @@
+# import Mutation.* from "../modules/user-svc/schema.graphql"
+
+type Query {
+  hello: String
+}

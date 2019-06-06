@@ -1,4 +1,12 @@
-const path = require('path')
-const { fileLoader } = require('merge-graphql-schemas')
+const user = require('./modules/user-svc/resolvers');
 
-module.exports = fileLoader(path.join(__dirname, './modules/**/resolvers.js'))
+const resolvers = {
+  Query: {
+    hello: () => 'Hello World'
+  },
+  Mutation: {
+    ...user.Mutation
+  }
+};
+
+module.exports = resolvers;

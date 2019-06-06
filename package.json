@@ -5,6 +5,9 @@
   "main": "index.js",
   "scripts": {
     "start": "env-cmd ./.env nodemon -L -e js,graphql app/index.js",
+    "deploy": "cd prisma && prisma deploy -e ../.env --no-seed",
+    "delete": "cd prisma && prisma delete -e ../.env",
+    "get-token": "cd prisma && prisma token -e ../.env --copy",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Mohamed Elbaz",
@@ -14,10 +17,15 @@
     "nodemon": "^1.19.0"
   },
   "dependencies": {
+    "apollo-server-express": "^2.6.1",
     "bcryptjs": "^2.4.3",
-    "graphql-yoga": "^1.17.4",
+    "body-parser": "^1.19.0",
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "graphql": "^14.3.1",
+    "graphql-import": "^0.7.1",
+    "graphql-middleware": "^3.0.2",
     "jsonwebtoken": "^8.5.1",
-    "merge-graphql-schemas": "^1.5.8",
     "prisma-binding": "^2.3.10"
   }
 }

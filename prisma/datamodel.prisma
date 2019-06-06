@@ -3,10 +3,12 @@ type User {
   username: String!
   email: String! @unique
   password: String!
+  sessions: [Session!]
 }
 
 type Guest {
   id: ID! @id
+  sessionID: ID!
   username: String!
 }
 
@@ -32,7 +34,7 @@ type Question {
   id: ID! @id
   author: User!
   body: String!
-  imageUrls: [String!]
+  imageUrls: [String!] @scalarList(strategy: RELATION)
   choices: [Choice!]! @relation(name: "QuestionChoices")
   correctChoices: [Choice!]! @relation(name: "QuestionCorrectChoices")
   createdAt: DateTime @createdAt
@@ -42,5 +44,5 @@ type Question {
 type Choice {
   id: ID! @id
   body: String!
-  chosenBy: [String!]
+  chosenBy: [String!] @scalarList(strategy: RELATION)
 }
