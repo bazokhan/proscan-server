@@ -27,7 +27,7 @@ const signupMiddleware = {
   }
 };
 
-const loginpMiddleware = {
+const loginMiddleware = {
   Mutation: {
     login: async (resolve, root, args, context, info) => {
       const { prisma } = context;
@@ -52,4 +52,4 @@ const loginpMiddleware = {
   }
 };
 
-module.exports = [signupMiddleware, loginpMiddleware];
+module.exports = [signupMiddleware, loginMiddleware];
