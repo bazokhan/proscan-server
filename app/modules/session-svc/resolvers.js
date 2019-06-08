@@ -1,5 +1,33 @@
+const { addFragmentToInfo } = require('graphql-binding');
 const resolvers = {
   Query: {
+    sessionByID: async (_, { publicId }, { prisma, guestID, userID }, info) => {
+      const newInfo = addFragmentToInfo(
+        info,
+        `fragment SessionFragment on Session {
+          author {
+            id
+          }
+          guests {
+            id
+          }
+        }`
+      );
+      const session = await prisma.query.session(
+        {
+          where: { publicId }
+        },
+        newInfo
+      );
+      if (
+        session &&
+        (session.guests.find(({ id }) => id === guestID) ||
+          session.author.id === userID)
+      ) {
+        return session;
+      }
+      return null;
+    },
     userSessions: (_, args, { prisma, userID }, info) => {
       return prisma.query.sessions(
         {
@@ -11,6 +39,27 @@ const resolvers = {
         },
         info
       );
+    },
+    alreadyJoined: async (_, { publicId }, { prisma, guestID }, info) => {
+      let joined = false;
+      if (guestID) {
+        const session = await prisma.query.session(
+          {
+            where: { publicId }
+          },
+          `{
+          id
+          guests {
+            id
+            username
+          }
+        }`
+        );
+        if (session) {
+          joined = session.guests.map(({ id }) => id).includes(guestID);
+        }
+      }
+      return joined;
     }
   },
   Mutation: {

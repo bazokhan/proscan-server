@@ -1,6 +1,8 @@
 # import Session, Guest from "prismaSchema"
 type Query {
   userSessions: [Session!]
+  sessionByID(publicId: String!): Session
+  alreadyJoined(publicId: String!): Boolean
 }
 type Mutation {
   createSession(publicId: String!): Session
