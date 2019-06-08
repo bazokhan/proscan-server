@@ -8,23 +8,24 @@ type User {
 
 type Guest {
   id: ID! @id
-  sessionID: ID!
   username: String!
+  session: Session
 }
 
 type Session {
   id: ID! @id
-  publicId: String!
+  publicId: String! @unique
   author: User!
-  status: Status!
-  questions: [Question!]!
-  activeQuestion: String!
+  status: Status @default(value: PENDING)
+  questions: [Question!]
+  activeQuestion: String
   createdAt: DateTime @createdAt
   updatedAt: DateTime @updatedAt
   guests: [Guest!]
 }
 
 enum Status {
+  PENDING
   ACTIVE
   PAUSED
   ENDED
@@ -33,10 +34,10 @@ enum Status {
 type Question {
   id: ID! @id
   author: User!
+  session: Session
   body: String!
   imageUrls: [String!] @scalarList(strategy: RELATION)
   choices: [Choice!]! @relation(name: "QuestionChoices")
-  correctChoices: [Choice!]! @relation(name: "QuestionCorrectChoices")
   createdAt: DateTime @createdAt
   updatedAt: DateTime @updatedAt
 }
@@ -44,5 +45,6 @@ type Question {
 type Choice {
   id: ID! @id
   body: String!
+  correct: Boolean @default(value: false)
   chosenBy: [String!] @scalarList(strategy: RELATION)
 }

@@ -1,6 +1,10 @@
 const { applyMiddleware } = require('graphql-middleware');
+
 const userMid = require('./modules/user-svc/middlewares');
-const middlewares = [...userMid];
+const sessionMid = require('./modules/session-svc/middlewares');
+const checkToken = require('./globalMiddlewares/checkToken');
+
+const middlewares = [...userMid, ...sessionMid, checkToken];
 
 const addMiddlewares = schema => {
   middlewares.forEach(middleware => {

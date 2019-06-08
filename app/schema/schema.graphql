@@ -1,5 +1,2 @@
 # import Mutation.* from "../modules/user-svc/schema.graphql"
-
-type Query {
-  hello: String
-}
+# import Query.*, Mutation.* from "../modules/session-svc/schema.graphql"

@@ -1,0 +1,21 @@
+# import Session, Guest from "prismaSchema"
+type Query {
+  userSessions: [Session!]
+}
+type Mutation {
+  createSession(publicId: String!): Session
+  createQuestions(publicId: String!, data: [InputQuestion]): Session
+  nextQuestion(publicId: String!): Session
+  joinSession(publicId: String!, username: String): Guest
+}
+
+input InputQuestion {
+  body: String!
+  imageUrls: [String]
+  choices: [InputChoice]
+}
+
+input InputChoice {
+  body: String!
+  correct: Boolean
+}

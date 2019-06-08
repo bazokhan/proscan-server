@@ -11,13 +11,13 @@ const context = context => {
   if (context.connection && context.connection.context) {
     return {
       prisma,
-      userID: context.connection.context.userid,
+      guestID: context.connection.context.guestid,
       ...context.connection.context
     };
   } else if (context.req && context.req.headers) {
     return {
       prisma,
-      userID: context.req.headers.userid,
+      guestID: context.req.headers.guestid,
       ...context.req.headers
     };
   } else {
