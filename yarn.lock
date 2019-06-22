@@ -1263,7 +1263,7 @@ graceful-fs@^4.1.11, graceful-fs@^4.1.2:
   resolved "https://registry.yarnpkg.com/graceful-fs/-/graceful-fs-4.1.15.tgz#ffb703e1066e8a0eeaa4c8b80ba9253eeefbfb00"
   integrity sha512-6uHUhOPEBgQ24HM+r6b/QwWfZq+yiFcipKFrOFiBEnWdy5sdzYoi+pJeQaPI5qOLRFqWmAXUPQNsielzdLoecA==
 
-graphql-binding@2.5.1:
+graphql-binding@2.5.1, graphql-binding@^2.5.1:
   version "2.5.1"
   resolved "https://registry.yarnpkg.com/graphql-binding/-/graphql-binding-2.5.1.tgz#cacd8d579c4098541dadb9325255c09e476ab65c"
   integrity sha512-9Lejxa7h/WcNZYyTvFQG12QUK8pkgbeEbEnMw3o/DsRhlIB8hrh+a+mbJgHpZ+dcUzSBGyTByiLAI3OLg7B//g==
@@ -1299,7 +1299,7 @@ graphql-middleware@^3.0.2:
   dependencies:
     graphql-tools "^4.0.4"
 
-graphql-subscriptions@^1.0.0:
+graphql-subscriptions@^1.0.0, graphql-subscriptions@^1.1.0:
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/graphql-subscriptions/-/graphql-subscriptions-1.1.0.tgz#5f2fa4233eda44cf7570526adfcf3c16937aef11"
   integrity sha512-6WzlBFC0lWmXJbIVE8OgFgXIP4RJi3OQgTPa0DVMsDXdpRDjTsM1K9wfl5HSYX7R87QAGlvcv2Y4BIZa/ItonA==

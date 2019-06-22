@@ -1,7 +1,5 @@
-const { AuthenticationError } = require('apollo-server-express');
-
 const { encryptPass, comparePass } = require('./helpers/passActions');
-const { genToken, decodeToken } = require('./helpers/genToken');
+const { genToken } = require('./helpers/genToken');
 
 const signupMiddleware = {
   Mutation: {
@@ -54,19 +52,4 @@ const loginMiddleware = {
   }
 };
 
-const globalMiddleware = (resolve, root, args, context, info) => {
-  const { authorization } = context;
-  const operationName = info.operation.selectionSet.selections[0].name.value;
-  const skippedOperations = ['login', 'signup'];
-  if (authorization && !skippedOperations.includes(operationName)) {
-    try {
-      const token = authorization.replace('Bearer ', '');
-      decodeToken(token);
-    } catch (e) {
-      throw new AuthenticationError('Invalid Token');
-    }
-  }
-  return resolve(root, args, context, info);
-};
-
-module.exports = [globalMiddleware, signupMiddleware, loginMiddleware];
+module.exports = [signupMiddleware, loginMiddleware];

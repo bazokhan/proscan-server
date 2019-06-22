@@ -25,6 +25,7 @@ type BatchPayload {
 type Choice {
   id: ID!
   body: String!
+  correct: Boolean
   chosenBy: [String!]!
 }
 
@@ -41,6 +42,7 @@ input ChoiceCreatechosenByInput {
 input ChoiceCreateInput {
   id: ID
   body: String!
+  correct: Boolean
   chosenBy: ChoiceCreatechosenByInput
 }
 
@@ -59,11 +61,14 @@ enum ChoiceOrderByInput {
   id_DESC
   body_ASC
   body_DESC
+  correct_ASC
+  correct_DESC
 }
 
 type ChoicePreviousValues {
   id: ID!
   body: String!
+  correct: Boolean
   chosenBy: [String!]!
 }
 
@@ -96,6 +101,8 @@ input ChoiceScalarWhereInput {
   body_not_starts_with: String
   body_ends_with: String
   body_not_ends_with: String
+  correct: Boolean
+  correct_not: Boolean
   AND: [ChoiceScalarWhereInput!]
   OR: [ChoiceScalarWhereInput!]
   NOT: [ChoiceScalarWhereInput!]
@@ -125,16 +132,19 @@ input ChoiceUpdatechosenByInput {
 
 input ChoiceUpdateDataInput {
   body: String
+  correct: Boolean
   chosenBy: ChoiceUpdatechosenByInput
 }
 
 input ChoiceUpdateInput {
   body: String
+  correct: Boolean
   chosenBy: ChoiceUpdatechosenByInput
 }
 
 input ChoiceUpdateManyDataInput {
   body: String
+  correct: Boolean
   chosenBy: ChoiceUpdatechosenByInput
 }
 
@@ -152,6 +162,7 @@ input ChoiceUpdateManyInput {
 
 input ChoiceUpdateManyMutationInput {
   body: String
+  correct: Boolean
   chosenBy: ChoiceUpdatechosenByInput
 }
 
@@ -200,6 +211,8 @@ input ChoiceWhereInput {
   body_not_starts_with: String
   body_ends_with: String
   body_not_ends_with: String
+  correct: Boolean
+  correct_not: Boolean
   AND: [ChoiceWhereInput!]
   OR: [ChoiceWhereInput!]
   NOT: [ChoiceWhereInput!]
@@ -213,8 +226,8 @@ scalar DateTime
 
 type Guest {
   id: ID!
-  sessionID: ID!
   username: String!
+  session: Session
 }
 
 type GuestConnection {
@@ -225,13 +238,18 @@ type GuestConnection {
 
 input GuestCreateInput {
   id: ID
-  sessionID: ID!
   username: String!
+  session: SessionCreateOneWithoutGuestsInput
 }
 
-input GuestCreateManyInput {
-  create: [GuestCreateInput!]
+input GuestCreateManyWithoutSessionInput {
+  create: [GuestCreateWithoutSessionInput!]
   connect: [GuestWhereUniqueInput!]
+}
+
+input GuestCreateWithoutSessionInput {
+  id: ID
+  username: String!
 }
 
 type GuestEdge {
@@ -242,15 +260,12 @@ type GuestEdge {
 enum GuestOrderByInput {
   id_ASC
   id_DESC
-  sessionID_ASC
-  sessionID_DESC
   username_ASC
   username_DESC
 }
 
 type GuestPreviousValues {
   id: ID!
-  sessionID: ID!
   username: String!
 }
 
@@ -269,20 +284,6 @@ input GuestScalarWhereInput {
   id_not_starts_with: ID
   id_ends_with: ID
   id_not_ends_with: ID
-  sessionID: ID
-  sessionID_not: ID
-  sessionID_in: [ID!]
-  sessionID_not_in: [ID!]
-  sessionID_lt: ID
-  sessionID_lte: ID
-  sessionID_gt: ID
-  sessionID_gte: ID
-  sessionID_contains: ID
-  sessionID_not_contains: ID
-  sessionID_starts_with: ID
-  sessionID_not_starts_with: ID
-  sessionID_ends_with: ID
-  sessionID_not_ends_with: ID
   username: String
   username_not: String
   username_in: [String!]
@@ -320,36 +321,29 @@ input GuestSubscriptionWhereInput {
   NOT: [GuestSubscriptionWhereInput!]
 }
 
-input GuestUpdateDataInput {
-  sessionID: ID
-  username: String
-}
-
 input GuestUpdateInput {
-  sessionID: ID
   username: String
+  session: SessionUpdateOneWithoutGuestsInput
 }
 
 input GuestUpdateManyDataInput {
-  sessionID: ID
   username: String
 }
 
-input GuestUpdateManyInput {
-  create: [GuestCreateInput!]
-  update: [GuestUpdateWithWhereUniqueNestedInput!]
-  upsert: [GuestUpsertWithWhereUniqueNestedInput!]
+input GuestUpdateManyMutationInput {
+  username: String
+}
+
+input GuestUpdateManyWithoutSessionInput {
+  create: [GuestCreateWithoutSessionInput!]
   delete: [GuestWhereUniqueInput!]
   connect: [GuestWhereUniqueInput!]
   set: [GuestWhereUniqueInput!]
   disconnect: [GuestWhereUniqueInput!]
+  update: [GuestUpdateWithWhereUniqueWithoutSessionInput!]
+  upsert: [GuestUpsertWithWhereUniqueWithoutSessionInput!]
   deleteMany: [GuestScalarWhereInput!]
   updateMany: [GuestUpdateManyWithWhereNestedInput!]
-}
-
-input GuestUpdateManyMutationInput {
-  sessionID: ID
-  username: String
 }
 
 input GuestUpdateManyWithWhereNestedInput {
@@ -357,15 +351,19 @@ input GuestUpdateManyWithWhereNestedInput {
   data: GuestUpdateManyDataInput!
 }
 
-input GuestUpdateWithWhereUniqueNestedInput {
-  where: GuestWhereUniqueInput!
-  data: GuestUpdateDataInput!
+input GuestUpdateWithoutSessionDataInput {
+  username: String
 }
 
-input GuestUpsertWithWhereUniqueNestedInput {
+input GuestUpdateWithWhereUniqueWithoutSessionInput {
   where: GuestWhereUniqueInput!
-  update: GuestUpdateDataInput!
-  create: GuestCreateInput!
+  data: GuestUpdateWithoutSessionDataInput!
+}
+
+input GuestUpsertWithWhereUniqueWithoutSessionInput {
+  where: GuestWhereUniqueInput!
+  update: GuestUpdateWithoutSessionDataInput!
+  create: GuestCreateWithoutSessionInput!
 }
 
 input GuestWhereInput {
@@ -383,20 +381,6 @@ input GuestWhereInput {
   id_not_starts_with: ID
   id_ends_with: ID
   id_not_ends_with: ID
-  sessionID: ID
-  sessionID_not: ID
-  sessionID_in: [ID!]
-  sessionID_not_in: [ID!]
-  sessionID_lt: ID
-  sessionID_lte: ID
-  sessionID_gt: ID
-  sessionID_gte: ID
-  sessionID_contains: ID
-  sessionID_not_contains: ID
-  sessionID_starts_with: ID
-  sessionID_not_starts_with: ID
-  sessionID_ends_with: ID
-  sessionID_not_ends_with: ID
   username: String
   username_not: String
   username_in: [String!]
@@ -411,6 +395,7 @@ input GuestWhereInput {
   username_not_starts_with: String
   username_ends_with: String
   username_not_ends_with: String
+  session: SessionWhereInput
   AND: [GuestWhereInput!]
   OR: [GuestWhereInput!]
   NOT: [GuestWhereInput!]
@@ -494,10 +479,10 @@ type Query {
 type Question {
   id: ID!
   author: User!
+  session: Session
   body: String!
   imageUrls: [String!]!
   choices(where: ChoiceWhereInput, orderBy: ChoiceOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Choice!]
-  correctChoices(where: ChoiceWhereInput, orderBy: ChoiceOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Choice!]
   createdAt: DateTime
   updatedAt: DateTime
 }
@@ -515,15 +500,23 @@ input QuestionCreateimageUrlsInput {
 input QuestionCreateInput {
   id: ID
   author: UserCreateOneInput!
+  session: SessionCreateOneWithoutQuestionsInput
   body: String!
   imageUrls: QuestionCreateimageUrlsInput
   choices: ChoiceCreateManyInput
-  correctChoices: ChoiceCreateManyInput
 }
 
-input QuestionCreateManyInput {
-  create: [QuestionCreateInput!]
+input QuestionCreateManyWithoutSessionInput {
+  create: [QuestionCreateWithoutSessionInput!]
   connect: [QuestionWhereUniqueInput!]
+}
+
+input QuestionCreateWithoutSessionInput {
+  id: ID
+  author: UserCreateOneInput!
+  body: String!
+  imageUrls: QuestionCreateimageUrlsInput
+  choices: ChoiceCreateManyInput
 }
 
 type QuestionEdge {
@@ -618,24 +611,16 @@ input QuestionSubscriptionWhereInput {
   NOT: [QuestionSubscriptionWhereInput!]
 }
 
-input QuestionUpdateDataInput {
-  author: UserUpdateOneRequiredInput
-  body: String
-  imageUrls: QuestionUpdateimageUrlsInput
-  choices: ChoiceUpdateManyInput
-  correctChoices: ChoiceUpdateManyInput
-}
-
 input QuestionUpdateimageUrlsInput {
   set: [String!]
 }
 
 input QuestionUpdateInput {
   author: UserUpdateOneRequiredInput
+  session: SessionUpdateOneWithoutQuestionsInput
   body: String
   imageUrls: QuestionUpdateimageUrlsInput
   choices: ChoiceUpdateManyInput
-  correctChoices: ChoiceUpdateManyInput
 }
 
 input QuestionUpdateManyDataInput {
@@ -643,21 +628,21 @@ input QuestionUpdateManyDataInput {
   imageUrls: QuestionUpdateimageUrlsInput
 }
 
-input QuestionUpdateManyInput {
-  create: [QuestionCreateInput!]
-  update: [QuestionUpdateWithWhereUniqueNestedInput!]
-  upsert: [QuestionUpsertWithWhereUniqueNestedInput!]
+input QuestionUpdateManyMutationInput {
+  body: String
+  imageUrls: QuestionUpdateimageUrlsInput
+}
+
+input QuestionUpdateManyWithoutSessionInput {
+  create: [QuestionCreateWithoutSessionInput!]
   delete: [QuestionWhereUniqueInput!]
   connect: [QuestionWhereUniqueInput!]
   set: [QuestionWhereUniqueInput!]
   disconnect: [QuestionWhereUniqueInput!]
+  update: [QuestionUpdateWithWhereUniqueWithoutSessionInput!]
+  upsert: [QuestionUpsertWithWhereUniqueWithoutSessionInput!]
   deleteMany: [QuestionScalarWhereInput!]
   updateMany: [QuestionUpdateManyWithWhereNestedInput!]
-}
-
-input QuestionUpdateManyMutationInput {
-  body: String
-  imageUrls: QuestionUpdateimageUrlsInput
 }
 
 input QuestionUpdateManyWithWhereNestedInput {
@@ -665,15 +650,22 @@ input QuestionUpdateManyWithWhereNestedInput {
   data: QuestionUpdateManyDataInput!
 }
 
-input QuestionUpdateWithWhereUniqueNestedInput {
-  where: QuestionWhereUniqueInput!
-  data: QuestionUpdateDataInput!
+input QuestionUpdateWithoutSessionDataInput {
+  author: UserUpdateOneRequiredInput
+  body: String
+  imageUrls: QuestionUpdateimageUrlsInput
+  choices: ChoiceUpdateManyInput
 }
 
-input QuestionUpsertWithWhereUniqueNestedInput {
+input QuestionUpdateWithWhereUniqueWithoutSessionInput {
   where: QuestionWhereUniqueInput!
-  update: QuestionUpdateDataInput!
-  create: QuestionCreateInput!
+  data: QuestionUpdateWithoutSessionDataInput!
+}
+
+input QuestionUpsertWithWhereUniqueWithoutSessionInput {
+  where: QuestionWhereUniqueInput!
+  update: QuestionUpdateWithoutSessionDataInput!
+  create: QuestionCreateWithoutSessionInput!
 }
 
 input QuestionWhereInput {
@@ -692,6 +684,7 @@ input QuestionWhereInput {
   id_ends_with: ID
   id_not_ends_with: ID
   author: UserWhereInput
+  session: SessionWhereInput
   body: String
   body_not: String
   body_in: [String!]
@@ -709,9 +702,6 @@ input QuestionWhereInput {
   choices_every: ChoiceWhereInput
   choices_some: ChoiceWhereInput
   choices_none: ChoiceWhereInput
-  correctChoices_every: ChoiceWhereInput
-  correctChoices_some: ChoiceWhereInput
-  correctChoices_none: ChoiceWhereInput
   createdAt: DateTime
   createdAt_not: DateTime
   createdAt_in: [DateTime!]
@@ -741,9 +731,9 @@ type Session {
   id: ID!
   publicId: String!
   author: User!
-  status: Status!
+  status: Status
   questions(where: QuestionWhereInput, orderBy: QuestionOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Question!]
-  activeQuestion: String!
+  activeQuestion: String
   createdAt: DateTime
   updatedAt: DateTime
   guests(where: GuestWhereInput, orderBy: GuestOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Guest!]
@@ -759,10 +749,10 @@ input SessionCreateInput {
   id: ID
   publicId: String!
   author: UserCreateOneWithoutSessionsInput!
-  status: Status!
-  questions: QuestionCreateManyInput
-  activeQuestion: String!
-  guests: GuestCreateManyInput
+  status: Status
+  questions: QuestionCreateManyWithoutSessionInput
+  activeQuestion: String
+  guests: GuestCreateManyWithoutSessionInput
 }
 
 input SessionCreateManyWithoutAuthorInput {
@@ -770,13 +760,41 @@ input SessionCreateManyWithoutAuthorInput {
   connect: [SessionWhereUniqueInput!]
 }
 
+input SessionCreateOneWithoutGuestsInput {
+  create: SessionCreateWithoutGuestsInput
+  connect: SessionWhereUniqueInput
+}
+
+input SessionCreateOneWithoutQuestionsInput {
+  create: SessionCreateWithoutQuestionsInput
+  connect: SessionWhereUniqueInput
+}
+
 input SessionCreateWithoutAuthorInput {
   id: ID
   publicId: String!
-  status: Status!
-  questions: QuestionCreateManyInput
-  activeQuestion: String!
-  guests: GuestCreateManyInput
+  status: Status
+  questions: QuestionCreateManyWithoutSessionInput
+  activeQuestion: String
+  guests: GuestCreateManyWithoutSessionInput
+}
+
+input SessionCreateWithoutGuestsInput {
+  id: ID
+  publicId: String!
+  author: UserCreateOneWithoutSessionsInput!
+  status: Status
+  questions: QuestionCreateManyWithoutSessionInput
+  activeQuestion: String
+}
+
+input SessionCreateWithoutQuestionsInput {
+  id: ID
+  publicId: String!
+  author: UserCreateOneWithoutSessionsInput!
+  status: Status
+  activeQuestion: String
+  guests: GuestCreateManyWithoutSessionInput
 }
 
 type SessionEdge {
@@ -802,8 +820,8 @@ enum SessionOrderByInput {
 type SessionPreviousValues {
   id: ID!
   publicId: String!
-  status: Status!
-  activeQuestion: String!
+  status: Status
+  activeQuestion: String
   createdAt: DateTime
   updatedAt: DateTime
 }
@@ -898,9 +916,9 @@ input SessionUpdateInput {
   publicId: String
   author: UserUpdateOneRequiredWithoutSessionsInput
   status: Status
-  questions: QuestionUpdateManyInput
+  questions: QuestionUpdateManyWithoutSessionInput
   activeQuestion: String
-  guests: GuestUpdateManyInput
+  guests: GuestUpdateManyWithoutSessionInput
 }
 
 input SessionUpdateManyDataInput {
@@ -932,17 +950,61 @@ input SessionUpdateManyWithWhereNestedInput {
   data: SessionUpdateManyDataInput!
 }
 
+input SessionUpdateOneWithoutGuestsInput {
+  create: SessionCreateWithoutGuestsInput
+  update: SessionUpdateWithoutGuestsDataInput
+  upsert: SessionUpsertWithoutGuestsInput
+  delete: Boolean
+  disconnect: Boolean
+  connect: SessionWhereUniqueInput
+}
+
+input SessionUpdateOneWithoutQuestionsInput {
+  create: SessionCreateWithoutQuestionsInput
+  update: SessionUpdateWithoutQuestionsDataInput
+  upsert: SessionUpsertWithoutQuestionsInput
+  delete: Boolean
+  disconnect: Boolean
+  connect: SessionWhereUniqueInput
+}
+
 input SessionUpdateWithoutAuthorDataInput {
   publicId: String
   status: Status
-  questions: QuestionUpdateManyInput
+  questions: QuestionUpdateManyWithoutSessionInput
   activeQuestion: String
-  guests: GuestUpdateManyInput
+  guests: GuestUpdateManyWithoutSessionInput
+}
+
+input SessionUpdateWithoutGuestsDataInput {
+  publicId: String
+  author: UserUpdateOneRequiredWithoutSessionsInput
+  status: Status
+  questions: QuestionUpdateManyWithoutSessionInput
+  activeQuestion: String
+}
+
+input SessionUpdateWithoutQuestionsDataInput {
+  publicId: String
+  author: UserUpdateOneRequiredWithoutSessionsInput
+  status: Status
+  activeQuestion: String
+  guests: GuestUpdateManyWithoutSessionInput
 }
 
 input SessionUpdateWithWhereUniqueWithoutAuthorInput {
   where: SessionWhereUniqueInput!
   data: SessionUpdateWithoutAuthorDataInput!
+}
+
+input SessionUpsertWithoutGuestsInput {
+  update: SessionUpdateWithoutGuestsDataInput!
+  create: SessionCreateWithoutGuestsInput!
+}
+
+input SessionUpsertWithoutQuestionsInput {
+  update: SessionUpdateWithoutQuestionsDataInput!
+  create: SessionCreateWithoutQuestionsInput!
 }
 
 input SessionUpsertWithWhereUniqueWithoutAuthorInput {
@@ -1028,9 +1090,11 @@ input SessionWhereInput {
 
 input SessionWhereUniqueInput {
   id: ID
+  publicId: String
 }
 
 enum Status {
+  PENDING
   ACTIVE
   PAUSED
   ENDED

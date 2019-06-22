@@ -1,11 +1,16 @@
 const user = require('./modules/user-svc/resolvers');
+const session = require('./modules/session-svc/resolvers');
 
 const resolvers = {
   Query: {
-    hello: () => 'Hello World'
+    ...session.Query
   },
   Mutation: {
-    ...user.Mutation
+    ...user.Mutation,
+    ...session.Mutation
+  },
+  Subscription: {
+    ...session.Subscription
   }
 };
 
