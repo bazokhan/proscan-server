@@ -1,2 +1,3 @@
 # import Mutation.* from "../modules/user-svc/schema.graphql"
 # import Query.*, Mutation.*, Subscription.* from "../modules/session-svc/schema.graphql"
+# import Query.*, Mutation.* from "../modules/upload-svc/schema.graphql"
