@@ -8,6 +8,9 @@ const resolvers = {
   Mutation: {
     ...user.Mutation,
     ...session.Mutation
+  },
+  Subscription: {
+    ...session.Subscription
   }
 };
 

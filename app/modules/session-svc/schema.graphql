@@ -1,4 +1,4 @@
-# import Session, Guest from "prismaSchema"
+# import Session, Guest, SessionSubscriptionPayload, Status from "prismaSchema"
 type Query {
   userSessions: [Session!]
   sessionByID(publicId: String!): Session
@@ -8,7 +8,30 @@ type Mutation {
   createSession(publicId: String!): Session
   createQuestions(publicId: String!, data: [InputQuestion]): Session
   nextQuestion(publicId: String!): Session
+  changeSessionStatus(publicId: String!, status: Status!): Session
   joinSession(publicId: String!, username: String): Guest
+}
+
+type Subscription {
+  subToSessions: SubToSessions
+  subToSession(publicId: String!): SubToSession
+}
+
+type SubToSession {
+  mutation: SubToSessionMutationEnum
+  publicId: String!
+  session: Session!
+}
+
+enum SubToSessionMutationEnum {
+  NextQuestion
+  JoinSession
+}
+
+type SubToSessions {
+  publicId: String!
+  status: Status!
+  session: Session!
 }
 
 input InputQuestion {

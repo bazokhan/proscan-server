@@ -1,18 +1,12 @@
 const { addFragmentToInfo } = require('graphql-binding');
+const {
+  sessionFragment,
+  sessionInfo
+} = require('../fragments/SessionFragment');
 const resolvers = {
   Query: {
     sessionByID: async (_, { publicId }, { prisma, guestID, userID }, info) => {
-      const newInfo = addFragmentToInfo(
-        info,
-        `fragment SessionFragment on Session {
-          author {
-            id
-          }
-          guests {
-            id
-          }
-        }`
-      );
+      const newInfo = addFragmentToInfo(info, sessionFragment);
       const session = await prisma.query.session(
         {
           where: { publicId }
@@ -99,8 +93,15 @@ const resolvers = {
         info
       );
     },
-    nextQuestion: (_, { questionID, publicId }, { prisma }, info) => {
-      return prisma.mutation.updateSession(
+    nextQuestion: async (
+      _,
+      { questionID, publicId },
+      { prisma, pubsub },
+      info
+    ) => {
+      const newInfo = addFragmentToInfo(info, sessionFragment);
+
+      const result = await prisma.mutation.updateSession(
         {
           where: {
             publicId
@@ -109,13 +110,20 @@ const resolvers = {
             activeQuestion: questionID
           }
         },
-        info
+        newInfo
       );
+      pubsub.publish(`Session_${publicId}_ActiveQuestion`, {
+        mutation: 'NextQuestion',
+        publicId,
+        session: result
+      });
+
+      return result;
     },
     joinSession: async (
       _,
       { publicId, username },
-      { prisma, guestID },
+      { prisma, guestID, pubsub },
       info
     ) => {
       if (guestID) {
@@ -133,7 +141,7 @@ const resolvers = {
         }
 
         if (guest) {
-          return await prisma.mutation.updateGuest(
+          const result = await prisma.mutation.updateGuest(
             {
               where: {
                 guestID
@@ -148,10 +156,24 @@ const resolvers = {
             },
             info
           );
+          const session = await prisma.query.session(
+            {
+              where: {
+                publicId
+              }
+            },
+            sessionInfo
+          );
+          pubsub.publish(`Session_${publicId}_NewGuest`, {
+            mutation: 'JoinSession',
+            publicId,
+            session
+          });
+          return result;
         }
       }
 
-      return prisma.mutation.createGuest(
+      const result = await prisma.mutation.createGuest(
         {
           data: {
             username,
@@ -164,6 +186,81 @@ const resolvers = {
         },
         info
       );
+      const session = await prisma.query.session(
+        {
+          where: {
+            publicId
+          }
+        },
+        sessionInfo
+      );
+
+      pubsub.publish(`Session_${publicId}_NewGuest`, {
+        mutation: 'JoinSession',
+        publicId,
+        session
+      });
+
+      return result;
+    },
+    changeSessionStatus: async (
+      _,
+      { status, publicId },
+      { prisma, userID, pubsub },
+      info
+    ) => {
+      const session = await prisma.query.sessions(
+        {
+          where: {
+            publicId,
+            author: {
+              id: userID
+            }
+          }
+        },
+        `{id}`
+      );
+      if (!session || !session.length) {
+        throw new Error('Session non exists');
+      }
+
+      const result = await prisma.mutation.updateSession(
+        {
+          where: {
+            publicId
+          },
+          data: {
+            status
+          }
+        },
+        info
+      );
+      pubsub.publish('Session_Status_Updated', {
+        publicId,
+        status,
+        session: result
+      });
+
+      return result;
+    }
+  },
+  Subscription: {
+    subToSessions: {
+      resolve: payload => {
+        return payload;
+      },
+      subscribe: (_, args, { pubsub }) =>
+        pubsub.asyncIterator('Session_Status_Updated')
+    },
+    subToSession: {
+      resolve: payload => {
+        return payload;
+      },
+      subscribe: (_, { publicId }, { pubsub }) =>
+        pubsub.asyncIterator([
+          `Session_${publicId}_ActiveQuestion`,
+          `Session_${publicId}_NewGuest`
+        ])
     }
   }
 };
