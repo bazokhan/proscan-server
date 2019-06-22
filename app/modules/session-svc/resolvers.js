@@ -3,6 +3,10 @@ const {
   sessionFragment,
   sessionInfo
 } = require('../fragments/SessionFragment');
+const {
+  questionFragment,
+  questionInfo
+} = require('../fragments/QuestionFragment');
 const resolvers = {
   Query: {
     sessionByID: async (_, { publicId }, { prisma, guestID, userID }, info) => {
@@ -242,6 +246,58 @@ const resolvers = {
       });
 
       return result;
+    },
+    answerQuestion: async (
+      _,
+      { questionID, chooseID },
+      { prisma, guestID, pubsub },
+      info
+    ) => {
+      const choice = await prisma.query.choice(
+        {
+          where: {
+            id: chooseID
+          }
+        },
+        `{
+        id
+        body
+        chosenBy
+        correct
+      }`
+      );
+      if (choice) {
+        const choosers = choice.chosenBy || [];
+        choosers.push(guestID);
+        await prisma.mutation.updateChoice({
+          where: {
+            id: chooseID
+          },
+          data: {
+            chosenBy: {
+              set: choosers
+            }
+          }
+        });
+        const newInfo = addFragmentToInfo(info, questionFragment);
+
+        const question = await prisma.query.question(
+          {
+            where: {
+              id: questionID
+            }
+          },
+          newInfo
+        );
+
+        pubsub.publish(`Question_${questionID}_Updated`, {
+          questionID,
+          question
+        });
+
+        return question;
+      }
+      return null;
     }
   },
   Subscription: {
@@ -251,6 +307,13 @@ const resolvers = {
       },
       subscribe: (_, args, { pubsub }) =>
         pubsub.asyncIterator('Session_Status_Updated')
+    },
+    subToQuestion: {
+      resolve: payload => {
+        return payload;
+      },
+      subscribe: (_, { questionID }, { pubsub }) =>
+        pubsub.asyncIterator(`Question_${questionID}_Updated`)
     },
     subToSession: {
       resolve: payload => {

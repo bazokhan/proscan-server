@@ -10,13 +10,19 @@ type Mutation {
   nextQuestion(publicId: String!): Session
   changeSessionStatus(publicId: String!, status: Status!): Session
   joinSession(publicId: String!, username: String): Guest
+  answerQuestion(questionID: ID!, chooseID: ID!): Question
 }
 
 type Subscription {
   subToSessions: SubToSessions
   subToSession(publicId: String!): SubToSession
+  subToQuestion(questionID: ID!): SubToQuestion
 }
 
+type SubToQuestion {
+  questionID: ID!
+  question: Question!
+}
 type SubToSession {
   mutation: SubToSessionMutationEnum
   publicId: String!
