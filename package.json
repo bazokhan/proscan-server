@@ -13,7 +13,6 @@
   "author": "Mohamed Elbaz",
   "license": "ISC",
   "devDependencies": {
-    "env-cmd": "^8.0.2",
     "nodemon": "^1.19.0"
   },
   "dependencies": {
@@ -23,6 +22,7 @@
     "body-parser": "^1.19.0",
     "cloudinary": "^1.14.0",
     "cors": "^2.8.5",
+    "env-cmd": "^9.0.3",
     "express": "^4.17.1",
     "graphql": "^14.3.1",
     "graphql-binding": "^2.5.1",
