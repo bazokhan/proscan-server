@@ -4,7 +4,7 @@
   "description": "Proscan Server App",
   "main": "index.js",
   "scripts": {
-    "start": "env-cmd ./.env nodemon -L -e js,graphql app/index.js",
+    "start": "env-cmd -f ./.env nodemon -L -e js,graphql app/index.js",
     "deploy": "cd prisma && prisma deploy -e ../.env --no-seed",
     "delete": "cd prisma && prisma delete -e ../.env",
     "get-token": "cd prisma && prisma token -e ../.env --copy",
