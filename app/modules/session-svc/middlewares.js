@@ -97,7 +97,7 @@ const nextQuestion = {
         );
 
         if (!userID || !session || session.author.id !== userID) {
-          throw new Error("You haven't access to do that");
+          throw new Error("You don't have access to do that");
         }
         const { activeQuestion, questions } = session;
         const index = questions.findIndex(({ id }) => activeQuestion === id);

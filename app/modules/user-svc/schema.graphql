@@ -1,3 +1,9 @@
+# import User from "prismaSchema"
+type Query {
+  users: [User!]
+  profile: User!
+}
+
 type Mutation {
   signup(data: InputSignUp): Token
   login(email: String!, password: String!): Token

@@ -4,6 +4,7 @@ const upload = require('./modules/upload-svc/resolvers');
 
 const resolvers = {
   Query: {
+    ...user.Query,
     ...session.Query,
     ...upload.Query
   },

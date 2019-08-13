@@ -225,7 +225,7 @@ const resolvers = {
         `{id}`
       );
       if (!session || !session.length) {
-        throw new Error('Session non exists');
+        throw new Error('Session does not exist');
       }
 
       const result = await prisma.mutation.updateSession(
