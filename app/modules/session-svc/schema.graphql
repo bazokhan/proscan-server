@@ -3,6 +3,7 @@ type Query {
   userSessions: [Session!]
   sessionByID(publicId: String!): Session
   alreadyJoined(publicId: String!): Boolean
+  activeSessions: [Session!]
 }
 type Mutation {
   createSession(publicId: String!): Session

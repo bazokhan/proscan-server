@@ -26,6 +26,13 @@ const resolvers = {
       }
       return null;
     },
+    activeSessions: async (_, args, { prisma, userID }, info) => {
+      return prisma.query.sessions({
+        where: {
+          status: "ACTIVE"
+        }
+      });
+    },
     userSessions: (_, args, { prisma, userID }, info) => {
       return prisma.query.sessions(
         {
