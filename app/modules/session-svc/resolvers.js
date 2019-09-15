@@ -29,7 +29,7 @@ const resolvers = {
     activeSessions: async (_, args, { prisma, userID }, info) => {
       return prisma.query.sessions({
         where: {
-          status: "ACTIVE"
+          status: 'ACTIVE'
         }
       });
     },

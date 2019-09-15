@@ -42,12 +42,14 @@ type SubToSessions {
 }
 
 input InputQuestion {
+  id: String
   body: String!
   imageUrls: [String]
   choices: [InputChoice]
 }
 
 input InputChoice {
+  id: String
   body: String!
   correct: Boolean
 }
