@@ -9,6 +9,7 @@ type Mutation {
   createSession(publicId: String!): Session
   createQuestions(publicId: String!, data: [InputQuestion]): Session
   nextQuestion(publicId: String!): Session
+  prevQuestion(publicId: String!): Session
   changeSessionStatus(publicId: String!, status: Status!): Session
   joinSession(publicId: String!, username: String): Guest
   answerQuestion(questionID: ID!, chooseID: ID!): Question

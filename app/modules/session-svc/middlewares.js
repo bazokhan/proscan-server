@@ -140,6 +140,50 @@ const nextQuestion = {
       } catch (ex) {
         console.log(ex);
       }
+    },
+    prevQuestion: async (resolve, root, args, context, info) => {
+      try {
+        const { publicId } = args;
+        const { prisma, userID } = context;
+        const session = await prisma.query.session(
+          {
+            where: {
+              publicId
+            }
+          },
+          `{
+          questions {
+            id
+          }
+          author {
+            id
+          }
+          activeQuestion      
+        }`
+        );
+
+        if (!userID || !session || session.author.id !== userID) {
+          throw new Error("You don't have access to do that");
+        }
+        const { activeQuestion, questions } = session;
+        const index = questions.findIndex(({ id }) => activeQuestion === id);
+        if (index === 0) {
+          return resolve(
+            root,
+            { ...args, questionID: questions[questions.length - 1].id },
+            context,
+            info
+          );
+        }
+        return resolve(
+          root,
+          { ...args, questionID: questions[index - 1].id },
+          context,
+          info
+        );
+      } catch (ex) {
+        console.log(ex);
+      }
     }
   }
 };

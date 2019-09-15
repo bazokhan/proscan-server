@@ -131,6 +131,33 @@ const resolvers = {
 
       return result;
     },
+    prevQuestion: async (
+      _,
+      { questionID, publicId },
+      { prisma, pubsub },
+      info
+    ) => {
+      const newInfo = addFragmentToInfo(info, sessionFragment);
+
+      const result = await prisma.mutation.updateSession(
+        {
+          where: {
+            publicId
+          },
+          data: {
+            activeQuestion: questionID
+          }
+        },
+        newInfo
+      );
+      pubsub.publish(`Session_${publicId}_ActiveQuestion`, {
+        mutation: 'NextQuestion',
+        publicId,
+        session: result
+      });
+
+      return result;
+    },
     joinSession: async (
       _,
       { publicId, username },
