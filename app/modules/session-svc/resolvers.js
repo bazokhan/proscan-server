@@ -26,6 +26,22 @@ const resolvers = {
       }
       return null;
     },
+    activeSession: async (_, { publicId }, { prisma, userID }, info) => {
+      let sessions = [];
+      sessions = await prisma.query.sessions(
+        {
+          where: {
+            publicId,
+            status: 'ACTIVE'
+          }
+        },
+        info
+      );
+      if (sessions.length) {
+        return sessions[0];
+      }
+      return null;
+    },
     activeSessions: async (_, args, { prisma, userID }, info) => {
       return prisma.query.sessions({
         where: {
