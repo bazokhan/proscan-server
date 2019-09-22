@@ -9,6 +9,9 @@ type Query {
 type Mutation {
   createSession(publicId: String!): Session
   createQuestions(publicId: String!, data: [InputQuestion]): Session
+  createQuestion(publicId: String!, question: InputQuestion!): Question
+  updateQuestion(questionId: String!, question: InputQuestion): Question
+  deleteQuestion(questionId: String!): Question
   nextQuestion(publicId: String!): Session
   prevQuestion(publicId: String!): Session
   changeSessionStatus(publicId: String!, status: Status!): Session

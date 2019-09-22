@@ -297,6 +297,105 @@ const resolvers = {
 
       return result;
     },
+    createQuestion: async (
+      _,
+      { publicId, question: { body, imageUrls, choices } },
+      { prisma, userID },
+      info
+    ) => {
+      const question = await prisma.mutation.createQuestion(
+        {
+          where: {},
+          data: {
+            body,
+            imageUrls: { set: imageUrls },
+            choices: {
+              create: choices.map(choice => {
+                choice.chosenBy = [];
+                return choice;
+              })
+            },
+            session: { connect: { publicId } },
+            author: { connect: { id: userID } }
+          }
+        },
+        info
+      );
+      return question;
+    },
+    updateQuestion: async (
+      _,
+      { questionId, question: { body, imageUrls, choices } },
+      { prisma, userID },
+      info
+    ) => {
+      const storedQuestion = await prisma.query.question(
+        {
+          where: { id: questionId }
+        },
+        `
+      {
+        choices{
+        id
+      }
+    }`
+      );
+      // console.log(storedQuestion);
+      if (!storedQuestion) return null;
+
+      const storedChoices = storedQuestion.choices.map(choice => choice.id);
+
+      const createdChoices = choices.filter(
+        choice => !storedChoices.includes(choice.id)
+      );
+
+      const updatedChoices = choices.filter(choice =>
+        storedChoices.includes(choice.id)
+      );
+
+      const deletedChoices = storedQuestion.choices.filter(choice => {
+        const storedChoices = choices.map(c => c.id);
+        return !storedChoices.includes(choice.id);
+      });
+
+      console.log(createdChoices);
+      console.log(updatedChoices);
+      console.log(deletedChoices);
+      const updatedQuestion = await prisma.mutation.updateQuestion(
+        {
+          where: { id: questionId },
+          data: {
+            body,
+            imageUrls: { set: imageUrls },
+            choices: {
+              update: updatedChoices.map(({ id, body, correct }) => {
+                return {
+                  where: { id },
+                  data: { body, correct, chosenBy: [] }
+                };
+              }),
+              create: createdChoices.map(({ body, correct }) => {
+                return { body, correct, chosenBy: [] };
+              }),
+              delete: deletedChoices.map(choice => {
+                return { id: choice.id };
+              })
+            }
+          }
+        },
+        info
+      );
+      return updatedQuestion;
+    },
+    deleteQuestion: async (_, { questionId }, { prisma }, info) => {
+      const deletedQuestion = await prisma.mutation.deleteQuestion(
+        {
+          where: { id: questionId }
+        },
+        info
+      );
+      return deletedQuestion;
+    },
     answerQuestion: async (
       _,
       { questionID, chooseID },
