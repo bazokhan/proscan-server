@@ -272,7 +272,13 @@ const resolvers = {
             }
           }
         },
-        `{id}`
+        `{
+          id
+          activeQuestion
+          questions {
+            id
+          }
+        }`
       );
       if (!session || !session.length) {
         throw new Error('Session does not exist');
@@ -284,7 +290,8 @@ const resolvers = {
             publicId
           },
           data: {
-            status
+            status,
+            activeQuestion: session[0].activeQuestion || session[0].questions[0].id
           }
         },
         info
