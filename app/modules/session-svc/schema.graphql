@@ -3,12 +3,17 @@ type Query {
   userSessions: [Session!]
   sessionByID(publicId: String!): Session
   alreadyJoined(publicId: String!): Boolean
+  activeSession(publicId: String!): Session
   activeSessions: [Session!]
 }
 type Mutation {
   createSession(publicId: String!): Session
   createQuestions(publicId: String!, data: [InputQuestion]): Session
+  createQuestion(publicId: String!, question: InputQuestion!): Question
+  updateQuestion(questionId: String!, question: InputQuestion): Question
+  deleteQuestion(questionId: String!): Question
   nextQuestion(publicId: String!): Session
+  prevQuestion(publicId: String!): Session
   changeSessionStatus(publicId: String!, status: Status!): Session
   joinSession(publicId: String!, username: String): Guest
   answerQuestion(questionID: ID!, chooseID: ID!): Question
@@ -42,12 +47,14 @@ type SubToSessions {
 }
 
 input InputQuestion {
+  id: String
   body: String!
   imageUrls: [String]
   choices: [InputChoice]
 }
 
 input InputChoice {
+  id: String
   body: String!
   correct: Boolean
 }
