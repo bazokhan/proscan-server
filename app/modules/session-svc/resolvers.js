@@ -291,7 +291,8 @@ const resolvers = {
           },
           data: {
             status,
-            activeQuestion: session[0].activeQuestion || session[0].questions[0].id
+            activeQuestion:
+              session[0].activeQuestion || session[0].questions[0].id
           }
         },
         info
@@ -347,7 +348,6 @@ const resolvers = {
       }
     }`
       );
-      // console.log(storedQuestion);
       if (!storedQuestion) return null;
 
       const storedChoices = storedQuestion.choices.map(choice => choice.id);
@@ -364,10 +364,6 @@ const resolvers = {
         const storedChoices = choices.map(c => c.id);
         return !storedChoices.includes(choice.id);
       });
-
-      console.log(createdChoices);
-      console.log(updatedChoices);
-      console.log(deletedChoices);
       const updatedQuestion = await prisma.mutation.updateQuestion(
         {
           where: { id: questionId },

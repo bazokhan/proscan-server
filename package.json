@@ -4,10 +4,14 @@
   "description": "Proscan Server App",
   "main": "index.js",
   "scripts": {
-    "start": "env-cmd -f ./.env nodemon -L -e js,graphql app/index.js",
-    "deploy": "cd prisma && prisma deploy -e ../.env --no-seed",
-    "delete": "cd prisma && prisma delete -e ../.env",
-    "get-token": "cd prisma && prisma token -e ../.env --copy",
+    "dev": "env-cmd -f ./.env nodemon -L -e js,graphql app/index.js",
+    "start": "env-cmd -f ./.env.production nodemon -L -e js,graphql app/index.js",
+    "deploy-dev": "cd prisma && prisma deploy -e ../.env --no-seed",
+    "deploy-prod": "cd prisma && prisma deploy -e ../.env.production --no-seed",
+    "delete-dev": "cd prisma && prisma delete -e ../.env",
+    "delete-prod": "cd prisma && prisma delete -e ../.env.production",
+    "get-token-dev": "cd prisma && prisma token -e ../.env --copy",
+    "get-token-prod": "cd prisma && prisma token -e ../.env.production --copy",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Mohamed Elbaz",
