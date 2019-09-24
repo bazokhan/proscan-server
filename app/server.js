@@ -37,7 +37,8 @@ const whitelist = [
   'http://localhost:3000',
   'http://localhost:3002',
   'http://quiz.manalclassroom.com/',
-  'https://proscan-client.herokuapp.com'
+  'https://proscan-client.herokuapp.com',
+  'https://proscan-server.herokuapp.com/graphql'
 ];
 
 app.use(
