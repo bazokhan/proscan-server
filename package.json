@@ -36,5 +36,8 @@
     "graphql-upload": "^8.0.7",
     "jsonwebtoken": "^8.5.1",
     "prisma-binding": "^2.3.10"
+  },
+  "engines": {
+    "node": "10.16"
   }
 }

@@ -32,7 +32,13 @@ const server = new ApolloServer({
 
 const app = express();
 
-const whitelist = ['http://localhost:4000', 'http://localhost:3000', 'http://localhost:3002'];
+const whitelist = [
+  'http://localhost:4000',
+  'http://localhost:3000',
+  'http://localhost:3002',
+  'http://quiz.manalclassroom.com/',
+  'https://proscan-client.herokuapp.com'
+];
 
 app.use(
   cors({
