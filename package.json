@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "dev": "env-cmd -f ./.env nodemon -L -e js,graphql app/index.js",
-    "start": "env-cmd -f ./.env.production node -L -e js,graphql app/index.js",
+    "start": "env-cmd -f ./.env.production node app/index.js",
     "deploy-dev": "cd prisma && prisma deploy -e ../.env --no-seed",
     "deploy-prod": "cd prisma && prisma deploy -e ../.env.production --no-seed",
     "delete-dev": "cd prisma && prisma delete -e ../.env",
