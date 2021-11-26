@@ -40,7 +40,8 @@ const whitelist = [
   'https://proscan-client.herokuapp.com',
   'https://proscan-server.herokuapp.com',
   'ws://quiz.manalclassroom.com',
-  'wss://proscan-client.herokuapp.com'
+  'wss://proscan-client.herokuapp.com',
+  'https://proscan-client-albaz2000eg.vercel.app/'
 ];
 
 app.use(
